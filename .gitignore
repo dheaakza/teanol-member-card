@@ -1,0 +1,5 @@
+node_modules/
+.env
+generated_cards/*.pdf
+!generated_cards/.gitkeep
+test_barcode.png

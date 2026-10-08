@@ -1,0 +1,20 @@
+{
+  "name": "teanol-member-card",
+  "version": "1.0.0",
+  "description": "Aplikasi pembuatan kartu member otomatis TEANOL - The Real Thai Tea",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "bwip-js": "^4.5.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mysql2": "^3.9.7",
+    "pdfkit": "^0.15.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEANOL - Input Pembelian</title>
+  <link rel="icon" href="/images/logo.png">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+
+    <header class="brand">
+      <img src="/images/logo.png" alt="Logo TEANOL">
+      <div>
+        <h1>TEANOL</h1>
+        <span>The Real Thai Tea &middot; Est 2016</span>
+      </div>
+    </header>
+
+    <nav class="tabs">
+      <a href="/index.html">
+        <svg class="icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        Member
+      </a>
+      <a href="/purchase.html" class="active">
+        <svg class="icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        Input Pembelian
+      </a>
+      <a href="/redeem.html">
+        <svg class="icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+        Tukar Poin
+      </a>
+    </nav>
+
+    <div class="card-panel">
+      <div class="panel-header">
+        <div>
+          <h2>Input Pembelian Minuman</h2>
+          <p class="sub">Setiap 1 produk minuman = <strong>10 poin</strong> otomatis ke akun member</p>
+        </div>
+        <button type="button" id="openScannerBtn" class="btn secondary">
+          <svg class="icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7V5a2 2 0 0 1 2-2h2"></path><path d="M17 3h2a2 2 0 0 1 2 2v2"></path><path d="M21 17v2a2 2 0 0 1-2 2h-2"></path><path d="M7 21H5a2 2 0 0 1-2-2v-2"></path><rect x="7" y="7" width="10" height="10" rx="1"></rect></svg>
+          Scan Barcode Member
+        </button>
+      </div>
+
+      <!-- Pilih Member -->
+      <div class="field">
+        <label for="member_code">Pilih Member *</label>
+        <select id="member_code" name="member_code" required>
+          <option value="">-- Memuat daftar member... --</option>
+        </select>
+      </div>
+
+      <!-- Info Member Terpilih -->
+      <div id="selectedMemberCard" style="display:none;background:#F8FAFC;border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 18px;margin-bottom:20px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <strong id="smName" style="color:var(--dark);font-size:15px;">-</strong>
+            <div id="smCode" style="font-size:12px;color:var(--text-muted);font-weight:600;">-</div>
+          </div>
+          <div class="badge points" id="smPoints">0 Poin</div>
+        </div>
+      </div>
+
+      <!-- Area Pemilihan Produk Minuman (Style persis seperti di Halaman Tukar Poin) -->
+      <div style="background:#FFFFFF;border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:20px;">
+        <h3 style="font-size:15px;font-weight:700;color:var(--dark);margin-bottom:12px;">Pilih Minuman &amp; Kuantitas</h3>
+
+        <!-- Pilihan Menu Minuman (Style Select persis seperti di Tukar Poin) -->
+        <div class="field">
+          <label for="product_select">Pilih Menu Minuman *</label>
+          <select id="product_select" required>
+            <option value="">-- Pilih Menu Minuman --</option>
+            <option value="Thai Tea Original" selected>Thai Tea Original (+10 Poin)</option>
+            <option value="Green Tea Thai Tea">Green Tea Thai Tea (+10 Poin)</option>
+            <option value="Choco Thai Tea">Choco Thai Tea (+10 Poin)</option>
+            <option value="Taro Milk Tea">Taro Milk Tea (+10 Poin)</option>
+            <option value="Coffee Thai Tea">Coffee Thai Tea (+10 Poin)</option>
+            <option value="Milk Tea Brown Sugar">Milk Tea Brown Sugar (+10 Poin)</option>
+            <option value="custom">Menu Kustom (Isi Nama Manual)</option>
+          </select>
+        </div>
+
+        <div class="menu-chips" style="margin-top:6px;margin-bottom:16px;">
+          <button type="button" class="chip-btn active" onclick="setProduct('Thai Tea Original')">Thai Tea Original</button>
+          <button type="button" class="chip-btn" onclick="setProduct('Green Tea Thai Tea')">Green Tea Thai Tea</button>
+          <button type="button" class="chip-btn" onclick="setProduct('Choco Thai Tea')">Choco Thai Tea</button>
+          <button type="button" class="chip-btn" onclick="setProduct('Taro Milk Tea')">Taro Milk Tea</button>
+          <button type="button" class="chip-btn" onclick="setProduct('Coffee Thai Tea')">Coffee Thai Tea</button>
+          <button type="button" class="chip-btn" onclick="setProduct('custom')">Menu Kustom</button>
+        </div>
+
+        <!-- Form Menu Kustom (Style persis seperti di Halaman Tukar Poin) -->
+        <div id="customProductFields" style="display:none;background:#FFFBEB;border:1px solid #FCD34D;border-radius:var(--radius-sm);padding:14px;margin-bottom:18px;">
+          <div class="field" style="margin-bottom:0;">
+            <label for="custom_product_name">Nama Minuman Kustom</label>
+            <input type="text" id="custom_product_name" placeholder="Contoh: Milo Thai Tea Original">
+          </div>
+        </div>
+
+        <div style="display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap;">
+          <div>
+            <label for="quantity" style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--dark-light);">Jumlah</label>
+            <div class="qty-control">
+              <button type="button" id="qtyMinusBtn">&minus;</button>
+              <input type="number" id="quantity" min="1" value="1">
+              <button type="button" id="qtyPlusBtn">&plus;</button>
+            </div>
+          </div>
+
+          <button type="button" id="addToCartBtn" class="btn primary" style="flex:1;min-width:180px;padding:11px 18px;">
+            <svg class="icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            Masukkan ke Keranjang
+          </button>
+        </div>
+      </div>
+
+      <!-- Keranjang Belanja Multi-Produk -->
+      <div class="cart-section">
+        <div class="cart-header">
+          <h3>
+            <svg class="icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+            Keranjang Pembelian
+          </h3>
+          <span id="cartCountBadge" class="badge" style="background:#E2E8F0;color:var(--dark-light);">0 Item</span>
+        </div>
+
+        <div id="cartList" class="cart-list">
+          <p style="text-align:center;color:var(--text-muted);padding:18px 0;font-size:13.5px;">
+            Keranjang masih kosong. Pilih minuman di atas lalu klik "Masukkan ke Keranjang".
+          </p>
+        </div>
+
+        <div id="cartTotalBar" class="cart-total-bar" style="display:none;">
+          <div>
+            <div class="total-label" id="cartSummaryQty">0 Minuman</div>
+            <div style="font-size:12px;color:var(--text-muted);">1 minuman = 10 poin</div>
+          </div>
+          <div style="text-align:right;">
+            <div class="total-label">Total Poin Diperoleh:</div>
+            <div class="total-points" id="cartTotalPoints">+0 Poin</div>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" id="submitCheckoutBtn" class="btn primary" style="width:100%;font-size:15px;padding:13px;" disabled>
+        Proses Transaksi &amp; Tambah Poin
+      </button>
+
+      <!-- Hasil Transaksi -->
+      <div id="resultBox" style="display:none;margin-top:20px;padding:18px;border-radius:var(--radius);background:#F0FDF4;border:1.5px dashed var(--success);">
+        <h3 style="color:#15803D;font-size:16px;margin-bottom:8px;display:flex;align-items:center;gap:6px;">
+          <svg class="icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Transaksi Berhasil Dicatat!
+        </h3>
+        <p id="resMemberText" style="font-size:14px;color:var(--dark);margin-bottom:4px;"></p>
+        <p id="resItemsText" style="font-size:13.5px;color:var(--dark-light);margin-bottom:4px;"></p>
+        <p style="font-size:14px;color:var(--dark);">Poin diperoleh: <strong id="resEarnedText" style="color:var(--success);"></strong></p>
+        <p style="font-size:14px;color:var(--dark);">Total poin sekarang: <strong id="resTotalText"></strong></p>
+      </div>
+    </div>
+
+    <footer>&copy; 2026 TEANOL - The Real Thai Tea. Sistem Kartu Member Otomatis.</footer>
+  </div>
+
+  <!-- Modern Scanner Modal Overlay -->
+  <div id="scannerModal" class="modal-overlay">
+    <div class="scanner-modal-card">
+      <div class="scanner-modal-header">
+        <h3>
+          <svg class="icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7V5a2 2 0 0 1 2-2h2"></path><path d="M17 3h2a2 2 0 0 1 2 2v2"></path><path d="M21 17v2a2 2 0 0 1-2 2h-2"></path><path d="M7 21H5a2 2 0 0 1-2-2v-2"></path><rect x="7" y="7" width="10" height="10" rx="1"></rect></svg>
+          Pindai Barcode Member
+        </h3>
+        <button type="button" class="modal-close" id="closeScannerModalBtn" style="background:#1E293B;color:#94A3B8;">&times;</button>
+      </div>
+
+      <div class="scanner-viewfinder-wrap">
+        <div id="scannerRegion"></div>
+      </div>
+
+      <div class="scanner-modal-footer">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <select id="cameraSelect" style="display:none;"></select>
+          <button type="button" id="toggleMirrorBtn" class="btn secondary sm" style="background:#1E293B;color:#E2E8F0;border-color:#334155;padding:6px 12px;font-size:12px;" title="Aktifkan/Nonaktifkan Mirror Kamera">
+            <svg class="icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            <span id="mirrorBtnText">Mirror: ON</span>
+          </button>
+        </div>
+        <label for="barcodeFileInput" class="btn secondary sm" style="cursor:pointer;background:#1E293B;color:#E2E8F0;border-color:#334155;">
+          <svg class="icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          Upload Foto Barcode
+        </label>
+        <input type="file" id="barcodeFileInput" accept="image/*" style="display:none;">
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <script src="/js/common.js"></script>
+  <script src="/js/purchase.js"></script>
+</body>
+</html>
